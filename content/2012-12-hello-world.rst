@@ -6,7 +6,11 @@ Hello, World!
 
 .. code-block:: dylan
 
-  format-out("Hello, world!\n");
+  define method say-hello () => ()
+    format-out("Hello, world!\n");
+  end;
+
+  say-hello();
 
 As part of the work that `DataFueled <http://datafueled.com/>`_ is
 doing, we are sponsoring work in the `Dylan <http://opendylan.org/>`_
