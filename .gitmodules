@@ -1,0 +1,3 @@
+[submodule "foundry-themes"]
+	path = foundry-themes
+	url = git://github.com/dylan-foundry/foundry-themes.git
