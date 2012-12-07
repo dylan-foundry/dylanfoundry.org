@@ -35,4 +35,6 @@ TWITTER_USERNAME = 'DylanFoundry'
 
 DEFAULT_PAGINATION = 10
 
+SUMMARY_MAX_LENGTH = None
+
 THEME = 'foundry-themes/pelican'
