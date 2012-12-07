@@ -27,7 +27,8 @@ LINKS =  (('OpenDylan.org', 'http://opendylan.org/'),)
 SOCIAL = (('@DylanFoundry/Twitter', 'https://twitter.com/DylanFoundry'),
           ('@DylanLanguage/Twitter', 'https://twitter.com/DylanLanguage'),
           ('dylan-foundry/GitHub', 'https://github.com/dylan-foundry/'),
-          ('dylan-lang/GitHub', 'https://github.com/dylan-lang/'),)
+          ('dylan-lang/GitHub', 'https://github.com/dylan-lang/'),
+          ('Tip me via GitTip', 'https://www.gittip.com/waywardmonkeys/'),)
 
 GITHUB_URL = 'https://github.com/dylan-foundry/'
 TWITTER_USERNAME = 'DylanFoundry'
