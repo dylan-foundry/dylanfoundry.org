@@ -59,22 +59,6 @@ We've used many other languages in the past and in the intervening
 years since discovering Dylan, but keep getting drawn back. Dylan
 is something special.
 
-Learning More
-=============
-
-Dylan has a large amount of documentation available:
-
-* `Introduction to Dylan <http://opendylan.org/documentation/intro-dylan/>`_:
-   A tutorial is written primarily for those with solid programming
-   experience in C++ or another object-oriented, static language. It
-   provides a gentler introduction to Dylan than does the Dylan
-   Reference Manual (DRM).
-* `Dylan Reference Manual <http://opendylan.org/books/drm/>`_:
-   The official definition of the Dylan language and standard library.
-* `Dylan Programming Guide <http://opendylan.org/books/dpg/>`_:
-   A good, book length Dylan tutorial by several Harlequin employees.
-
-
 What does Dylan look like?
 ==========================
 
@@ -111,3 +95,20 @@ A simple fibonacci sequence generator, using a closure:
   for (i from 1 to 15)
     format-out("%d ", fib())
   end;
+
+Learning More About Dylan
+=========================
+
+Dylan has a large amount of documentation available:
+
+* `Introduction to Dylan <http://opendylan.org/documentation/intro-dylan/>`_:
+   A tutorial is written primarily for those with solid programming
+   experience in C++ or another object-oriented, static language. It
+   provides a gentler introduction to Dylan than does the Dylan
+   Reference Manual (DRM).
+* `Dylan Reference Manual <http://opendylan.org/books/drm/>`_:
+   The official definition of the Dylan language and standard library.
+* `Dylan Programming Guide <http://opendylan.org/books/dpg/>`_:
+   A good, book length Dylan tutorial by several Harlequin employees.
+* `OpenDylan Documentation <http://opendylan.org/documentation/>`_:
+   All of the OpenDylan documentation.
