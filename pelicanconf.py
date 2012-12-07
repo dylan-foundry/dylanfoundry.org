@@ -32,6 +32,7 @@ SOCIAL = (('@DylanFoundry/Twitter', 'https://twitter.com/DylanFoundry'),
 
 GITHUB_URL = 'https://github.com/dylan-foundry/'
 TWITTER_USERNAME = 'DylanFoundry'
+DISQUS_SITENAME = 'dylanfoundry'
 
 DEFAULT_PAGINATION = 10
 
