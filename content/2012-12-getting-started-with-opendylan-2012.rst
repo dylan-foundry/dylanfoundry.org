@@ -4,7 +4,6 @@ Getting Started with OpenDylan 2012.1
 :author: Bruce Mitchener, Jr.
 :date: 2012-12-17
 :tags: Tutorials
-:status: draft
 
 There are many `exciting changes <http://opendylan.org/documentation/release-notes/2012.1.html>`_
 in the 2012.1 release of OpenDylan, but to me, some of the most exciting
@@ -32,7 +31,7 @@ Installing OpenDylan is pretty easy on Linux and Mac OS X.
    is on your ``PATH``.  You can do this by placing a line in your
    ``.bashrc`` in your home directory like this::
 
-     export PATH=/opt/opendylan-2011.1/bin:$PATH
+     export PATH=/opt/opendylan-2012.1/bin:$PATH
 
    You can enter that command in your current shell as well.
 
