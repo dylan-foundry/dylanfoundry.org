@@ -2,7 +2,7 @@ Getting Started with OpenDylan 2012.1
 #####################################
 
 :author: Bruce Mitchener, Jr.
-:date: 2012-12-17
+:date: 2012-12-20
 :tags: Tutorials
 
 There are many `exciting changes <http://opendylan.org/documentation/release-notes/2012.1.html>`_
