@@ -24,11 +24,11 @@ PAGES = (('About', '/about/'),)
 LINKS =  (('OpenDylan.org', 'http://opendylan.org/'),)
 
 # Social widget
-SOCIAL = (('@DylanFoundry/Twitter', 'https://twitter.com/DylanFoundry'),
-          ('@DylanLanguage/Twitter', 'https://twitter.com/DylanLanguage'),
-          ('dylan-foundry/GitHub', 'https://github.com/dylan-foundry/'),
-          ('dylan-lang/GitHub', 'https://github.com/dylan-lang/'),
-          ('Tip me via GitTip', 'https://www.gittip.com/waywardmonkeys/'),)
+SOCIAL = (('icon-twitter', '@DylanFoundry', 'https://twitter.com/DylanFoundry'),
+          ('icon-twitter', '@DylanLanguage', 'https://twitter.com/DylanLanguage'),
+          ('icon-github', 'dylan-foundry/GitHub', 'https://github.com/dylan-foundry/'),
+          ('icon-github', 'dylan-lang/GitHub', 'https://github.com/dylan-lang/'),
+          ('icon-heart', 'Tip me via GitTip', 'https://www.gittip.com/waywardmonkeys/'),)
 
 GITHUB_URL = 'https://github.com/dylan-foundry/'
 TWITTER_USERNAME = 'DylanFoundry'
