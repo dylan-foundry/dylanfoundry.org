@@ -15,16 +15,21 @@ liberal terms of the MIT license.
 I have recently written bindings for it for use with Dylan which
 are available as `nanomsg-dylan`_.
 
+In Dylan, we have a couple of options when writing bindings. We
+have a low level ``direct-c-ffi`` and a higher level `C-FFI`_.
+Using the lower level interface is fairly tedious and verbose
+while using C-FFI is fairly convenient.  But writing a binding
+using either involves a lot of work and hand-translation of
+the C APIs into the right Dylan definitions.
+
+This is where the `melange`_ tool is very useful. Melange can
+parse C headers and automatically generate the `C-FFI`_ bindings.
+While doing this code generation, it also handles details like
+automatically translations the C names into the correct Dylan
+names following the Dylan conventions.
+
 Using Melange
 =============
-
-I decided to use `melange`_ when writing the nanomsg bindings. This
-simplifies some of the process through automation. I don't have to
-manually determine the values for constants or some of the other
-tedious tasks involved in writing a binding.
-
-Melange will also automatically handle translating names into the
-Dylan names according to convention.
 
 Melange generates a Dylan file which contains `C-FFI`_ bindings.
 This file will need to be compiled by the ``dylan-compiler``.
@@ -303,7 +308,7 @@ To do that, we define a new ``C-mapped-subtype`` and a helper function:
 
 .. code-block:: dylan
 
-    define simple-C-mapped-subtype <C-buffer-offset> (<C-char*>)
+    define simple-C-mapped-subtype <C-buffer-offset> (<C-void*>)
       export-map <machine-word>, export-function: identity;
     end;
 
@@ -385,5 +390,5 @@ to try binding a library on your own!
 .. _melange: https://github.com/dylan-lang/melange
 .. _melange git repository: https://github.com/dylan-lang/melange
 .. _C-FFI: http://opendylan.org/documentation/library-reference/c-ffi/index.html
-.. _C-mapped-subtype: http://opendylan.org/documentation/library-reference/c-ffi/index.html#c-ffi:c-ffi:definec-mapped-subtype
+.. _C-mapped-subtype: http://opendylan.org/documentation/library-reference/c-ffi/index.html#XXXX
 .. _nanomsg-dylan: https://github.com/dylan-foundry/nanomsg-dylan
