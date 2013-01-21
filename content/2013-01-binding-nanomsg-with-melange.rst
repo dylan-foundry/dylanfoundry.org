@@ -20,7 +20,8 @@ have a low level ``direct-c-ffi`` and a higher level `C-FFI`_.
 Using the lower level interface is fairly tedious and verbose
 while using C-FFI is fairly convenient.  But writing a binding
 using either involves a lot of work and hand-translation of
-the C APIs into the right Dylan definitions.
+the C APIs into the right Dylan definitions. (Currently, the
+``direct-c-ffi`` system is not documented.)
 
 This is where the `melange`_ tool is very useful. Melange can
 parse C headers and automatically generate the `C-FFI`_ bindings.
@@ -304,7 +305,12 @@ To actually pass data through to ``%sp-send`` and get it back from
 get a pointer to the underlying storage within a ``<buffer>`` and
 pass that to the C functions.
 
-To do that, we define a new ``C-mapped-subtype`` and a helper function:
+To do that, we define a new ``C-mapped-subtype`` and a helper function
+``buffer-offset``, which is using some low level primitives to get at
+the internal storage and return the address as a ``<machine-word>``.
+In this code, we don't want to use the ``data-offset`` parameter, but
+in cases where you want to work with a subset of a buffer, it can be
+useful.
 
 .. code-block:: dylan
 
@@ -324,11 +330,6 @@ To do that, we define a new ``C-mapped-subtype`` and a helper function:
             (primitive-repeated-slot-as-raw
                (the-buffer, primitive-repeated-slot-offset(the-buffer))))
     end function;
-
-The function ``buffer-offset`` is using some low level primitives to
-get at the internal storage and return the address as a ``<machine-word>``.
-In this code, we don't use the ``data-offset``, but in cases where you want
-to work with a subset of a buffer, it can be useful.
 
 We'll have to tell melange that these functions want a ``<C-buffer-offset>``:
 
@@ -379,8 +380,7 @@ while other work remains.  Feel free to try out the bindings and
 report any issues that you encounter.
 
 In future blog posts, we'll write about using the `C-FFI`_ directly
-as well as using the lower level ``direct-c-ffi`` (which is currently
-undocumented).
+as well as using the lower level ``direct-c-ffi``.
 
 Hopefully you have a good idea now of what is involved in producing
 bindings for a C library using the `melange`_ tool and are ready
