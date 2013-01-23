@@ -2,7 +2,7 @@ Why is the OpenDylan IDE only on Windows?
 #########################################
 
 :author: Bruce Mitchener, Jr.
-:tags: IDE
+:tags: IDE, Platform Support
 
 We're often asked when the IDE will show up on Linux or Mac OS X.
 
