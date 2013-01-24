@@ -2,7 +2,7 @@ Binding nanomsg with melange
 ############################
 
 :author: Bruce Mitchener, Jr.
-:date: 2013-01-21
+:date: 2013-01-25
 :tags: Tutorials, C-FFI, melange
 :status: draft
 
