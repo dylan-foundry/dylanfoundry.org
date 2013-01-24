@@ -68,16 +68,16 @@ I start out with a simple *interface definition*, ``nanomsg.intr``:
 
     define interface
       include {
-        "sp/sp.h",
-        "sp/fanin.h",
-        "sp/inproc.h",
-        "sp/pair.h",
-        "sp/reqrep.h",
-        "sp/survey.h",
-        "sp/fanout.h",
-        "sp/ipc.h",
-        "sp/pubsub.h",
-        "sp/tcp.h"
+        "nanomsg/nn.h",
+        "nanomsg/fanin.h",
+        "nanomsg/inproc.h",
+        "nanomsg/pair.h",
+        "nanomsg/reqrep.h",
+        "nanomsg/survey.h",
+        "nanomsg/fanout.h",
+        "nanomsg/ipc.h",
+        "nanomsg/pubsub.h",
+        "nanomsg/tcp.h"
       },
 
       equate: {"char *" => <c-string>},
@@ -110,17 +110,17 @@ we introduce an ``exclude:`` clause:
       import all,
 
       exclude: {
-        "SP_HAUSNUMERO",
-        "SP_PAIR_ID",
-        "SP_PUBSUB_ID",
-        "SP_REQREP_ID",
-        "SP_FANIN_ID",
-        "SP_FANOUT_ID",
-        "SP_SURVEY_ID"
+        "NN_HAUSNUMERO",
+        "NN_PAIR_ID",
+        "NN_PUBSUB_ID",
+        "NN_REQREP_ID",
+        "NN_FANIN_ID",
+        "NN_FANOUT_ID",
+        "NN_SURVEY_ID"
       };
 
 We might also notice that not everything was imported into Dylan.
-In particular, various functions are defined to cause ``sp-errno``
+In particular, various functions are defined to cause ``nn-errno``
 to return ``EAGAIN``, ``EADDRINUSE`` and other errors that are
 defined by the OS.  They aren't imported because they aren't
 defined with the headers that we're directly including.
@@ -154,12 +154,12 @@ The best way to get these imported is to specifically import them:
 Input / Output Parameters
 =========================
 
-If we look at ``sp_version`` in the C headers, we'll see that it is
+If we look at ``nn_version`` in the C headers, we'll see that it is
 defined as:
 
 .. code-block:: c
 
-    SP_EXPORT void sp_version (int *major, int *minor, int *patch);
+    NN_EXPORT void nn_version (int *major, int *minor, int *patch);
 
 This is not so convenient when using it from Dylan.  We can simplify
 this though by adding a function clause after the interface definition.
@@ -168,16 +168,16 @@ definition is mapped into Dylan's `C-FFI`_:
 
 .. code-block:: dylan
 
-    function "sp_version",
+    function "nn_version",
       output-argument: 1,
       output-argument: 2,
       output-argument: 3;
 
-With this refinement in place, we can now call ``sp-version`` as follows:
+With this refinement in place, we can now call ``nn-version`` as follows:
 
 .. code-block:: dylan
 
-    let (major, minor, patch) = sp-version();
+    let (major, minor, patch) = nn-version();
 
 Awesome!
 
@@ -190,67 +190,67 @@ enough to make us all feel a bit sad:
 
 .. code-block:: dylan
 
-    let res = sp-bind(sock, "inproc://test");
+    let res = nn-bind(sock, "inproc://test");
     if (res < 0)
-      let error = sp-errno();
+      let error = nn-errno();
       // Do something
     end if;
 
 Fixing this is a bit trickier.
 
 What we want to do is say that the return type of these functions,
-like ``sp-bind`` isn't merely an integer, but it is a special type
+like ``nn-bind`` isn't merely an integer, but it is a special type
 which has meaning when it is less than zero.  In Dylan's `C-FFI`_,
 we call this a `C-mapped-subtype`_.  That sounds complicated, but
 this code should make it more readily understandable:
 
 .. code-block:: dylan
 
-    define class <sp-error> (<error>)
-      constant slot sp-error-status :: <integer>,
+    define class <nn-error> (<error>)
+      constant slot nn-error-status :: <integer>,
         required-init-keyword: status:;
-      constant slot sp-error-message :: <string>,
+      constant slot nn-error-message :: <string>,
         init-keyword: message:,
         init-value: "Unknown error";
     end;
 
-    define C-mapped-subtype <sp-status> (<C-int>)
+    define C-mapped-subtype <nn-status> (<C-int>)
       import-map <integer>,
         import-function:
           method (result :: <integer>) => (checked :: <integer>)
             if ((result < 0) & (result ~= $EAGAIN))
-              let errno = sp-errno();
-              error(make(<sp-error>,
+              let errno = nn-errno();
+              error(make(<nn-error>,
                          status: errno,
-                         message: sp-strerror(errno)));
+                         message: nn-strerror(errno)));
             else
               result;
             end;
           end;
     end;
 
-Here we've just defined an error type, ``<sp-error>`` as well as our
-``C-mapped-subtype``, ``<sp-status>``.  When we import a value that is
-an ``<sp-status>``, the import function is called to help map the value
+Here we've just defined an error type, ``<nn-error>`` as well as our
+``C-mapped-subtype``, ``<nn-status>``.  When we import a value that is
+an ``<nn-status>``, the import function is called to help map the value
 from C to Dylan.  In this case, if it is less than ``0`` and not
 ``$EAGAIN``, we signal an error.
 
 In this case, we specifically exclude ``$EAGAIN`` as it isn't usually an
-error when it occurs, such as when using the ``$SP-DONTWAIT`` flag.
+error when it occurs, such as when using the ``$NN-DONTWAIT`` flag.
 
 Note that Melange interface files can include regular Dylan code which
 will simply be directly copied to the generated Dylan file.
 
 Now, we just need to add ``function`` clauses to specify that when to use
-``<sp-status>`` as the result type:
+``<nn-status>`` as the result type:
 
 .. code-block:: dylan
 
-    function "sp_bind",
-      map-result: <sp-status>;
+    function "nn_bind",
+      map-result: <nn-status>;
 
-    function "sp_close",
-      map-result: <sp-status>;
+    function "nn_close",
+      map-result: <nn-status>;
 
 Easy, once we know what we're doing, right? :)
 
@@ -264,44 +264,44 @@ In C, the relevant functions look like:
 
 .. code-block:: c
 
-    SP_EXPORT int sp_send (int s, const void *buf, size_t len, int flags);
-    SP_EXPORT int sp_recv (int s, void *buf, size_t len, int flags);
+    NN_EXPORT int nn_send (int s, const void *buf, size_t len, int flags);
+    NN_EXPORT int nn_recv (int s, void *buf, size_t len, int flags);
 
 For now, we'll set up I/O using ``<buffer>`` from the I/O library.
 Similar techniques can be used with ``<byte-vector>`` or ``<byte-string>``.
 
-First, we're going to want to write wrappers around the ``sp-send`` and
-``sp-recv`` functions, but we'd still like for our wrappers to keep those
+First, we're going to want to write wrappers around the ``nn-send`` and
+``nn-recv`` functions, but we'd still like for our wrappers to keep those
 names, so we'll rename the raw C-FFI functions, via a ``rename:`` clause
 in our interface definition:
 
 .. code-block:: dylan
 
     rename: {
-      "sp_recv" => %sp-recv,
-      "sp_send" => %sp-send
+      "nn_recv" => %nn-recv,
+      "nn_send" => %nn-send
     };
 
 Now, we can set up some wrapper methods:
 
 .. code-block:: dylan
 
-    define inline function sp-send
+    define inline function nn-send
         (socket :: <integer>, data :: <buffer>,
          flags :: <integer>)
      => (res :: <integer>)
-      %sp-send(...)
+      %nn-send(...)
     end;
 
-    define inline function sp-recv
+    define inline function nn-recv
         (socket :: <integer>, data :: <buffer>,
          flags :: <integer>)
      => (res :: <integer>)
-      %sp-recv(...);
+      %nn-recv(...);
     end;
 
-To actually pass data through to ``%sp-send`` and get it back from
-``%sp-recv``, we need to do a little more work though.  We want to
+To actually pass data through to ``%nn-send`` and get it back from
+``%nn-recv``, we need to do a little more work though.  We want to
 get a pointer to the underlying storage within a ``<buffer>`` and
 pass that to the C functions.
 
@@ -335,30 +335,30 @@ We'll have to tell melange that these functions want a ``<C-buffer-offset>``:
 
 .. code-block:: dylan
 
-    function "sp_recv",
+    function "nn_recv",
       map-argument: { 2 => <C-buffer-offset> },
-      map-result: <sp-status>;
+      map-result: <nn-status>;
 
-    function "sp_send",
+    function "nn_send",
       map-argument: { 2 => <C-buffer-offset> },
-      map-result: <sp-status>;
+      map-result: <nn-status>;
 
-And now we can provide the full definition for ``sp-send`` and ``sp-recv``:
+And now we can provide the full definition for ``nn-send`` and ``nn-recv``:
 
 .. code-block:: dylan
 
-    define inline function sp-send
+    define inline function nn-send
         (socket :: <integer>, data :: <buffer>,
          flags :: <integer>)
      => (res :: <integer>)
-      %sp-send(socket, buffer-offset(data, 0), data.size, flags)
+      %nn-send(socket, buffer-offset(data, 0), data.size, flags)
     end;
 
-     define inline function sp-recv
+     define inline function nn-recv
         (socket :: <integer>, data :: <buffer>,
          flags :: <integer>)
      => (res :: <integer>)
-      %sp-recv(socket, buffer-offset(data, 0), data.size, flags);
+      %nn-recv(socket, buffer-offset(data, 0), data.size, flags);
     end;
 
 Further Improvements
@@ -369,8 +369,8 @@ Further improvements are possible:
 - Define a specialized type that we use for sockets so that
   they can't be confused with regular integers.
 
-- Provide custom wrappers around ``sp-setsockopt`` and
-  ``sp-getsockopt`` to handle the data conversions involved.
+- Provide custom wrappers around ``nn-setsockopt`` and
+  ``nn-getsockopt`` to handle the data conversions involved.
 
 - Do something to improve the experience of using the
   zero-copy nanomsg APIs.
