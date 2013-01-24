@@ -10,7 +10,8 @@ For those who haven't heard about it, `nanomsg`_ is a great library
 from Martin Sustrik. It provides high performance messaging with a
 simple API similar to that of BSD sockets. It bears some similarity
 to what someone might do with ZeroMQ and is licensed under the
-liberal terms of the MIT license.
+liberal terms of the MIT license. The nanomsg library is currently
+in a pre-alpha state.
 
 I have recently written bindings for it for use with Dylan which
 are available as `nanomsg-dylan`_.
