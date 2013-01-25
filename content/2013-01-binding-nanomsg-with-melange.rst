@@ -4,7 +4,6 @@ Binding nanomsg with melange
 :author: Bruce Mitchener, Jr.
 :date: 2013-01-25
 :tags: Tutorials, C-FFI, melange
-:status: draft
 
 For those who haven't heard about it, `nanomsg`_ is a great library
 from Martin Sustrik. It provides high performance messaging with a
