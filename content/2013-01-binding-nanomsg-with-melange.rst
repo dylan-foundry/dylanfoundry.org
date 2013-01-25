@@ -30,6 +30,8 @@ While doing this code generation, it also handles details like
 automatically translations the C names into the correct Dylan
 names following the Dylan conventions.
 
+Melange now has some `preliminary documentation`_.
+
 Using Melange
 =============
 
@@ -393,3 +395,4 @@ to try binding a library on your own!
 .. _C-FFI: http://opendylan.org/documentation/library-reference/c-ffi/index.html
 .. _C-mapped-subtype: http://opendylan.org/documentation/library-reference/c-ffi/index.html#XXXX
 .. _nanomsg-dylan: https://github.com/dylan-foundry/nanomsg-dylan
+.. _preliminary documentation: http://opendylan.org/documentation/melange/
