@@ -11,10 +11,7 @@ FTP_HOST=
 FTP_USER=
 FTP_TARGET_DIR=
 
-SSH_HOST=
-SSH_PORT=
-SSH_USER=
-SSH_TARGET_DIR=
+include Makefile.private
 
 DROPBOX_DIR=~/Dropbox/Public/
 
