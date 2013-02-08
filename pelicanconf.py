@@ -36,6 +36,6 @@ DISQUS_SITENAME = 'dylanfoundry'
 
 DEFAULT_PAGINATION = 10
 
-SUMMARY_MAX_LENGTH = None
+SUMMARY_MAX_LENGTH = 200
 
 THEME = 'foundry-themes/pelican'
