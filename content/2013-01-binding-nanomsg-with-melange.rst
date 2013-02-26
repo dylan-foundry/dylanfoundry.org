@@ -69,7 +69,7 @@ I start out with a simple *interface definition*, ``nanomsg.intr``:
     module: nanomsg
 
     define interface
-      include {
+      #include {
         "nanomsg/nn.h",
         "nanomsg/fanin.h",
         "nanomsg/inproc.h",
@@ -103,7 +103,7 @@ we introduce an ``exclude:`` clause:
     module: nanomsg
 
     define interface
-      include {
+      #include {
         ...
       },
 
