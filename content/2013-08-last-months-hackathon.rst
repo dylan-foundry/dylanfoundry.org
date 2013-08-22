@@ -20,6 +20,7 @@ spread out over the weekend and some great contributions got completed.
 * Andreas Bogk returned from the dead and observed the goings on after a
   multi-year absence.
 * Tom Emerson began investigating providing support for Unicode in Dylan.
+* Robert Roland enhanced the `sqlite bindings`_.
 
 Thanks to everyone who participated and we're looking forward to our
 next hack-a-thon in a couple of months.
@@ -28,3 +29,4 @@ All of these changes and much much more will be present in our upcoming 2013.2
 release!
 
 .. _regular expressions library: http://opendylan.org/documentation/library-reference/regular-expressions/
+.. _sqlite bindings: https://github.com/dylan-foundry/sqlite-dylan
