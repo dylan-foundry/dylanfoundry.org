@@ -13,12 +13,12 @@ Open Dylan has 3 compiler back-ends currently:
 Harp
 ====
 
-The HARP back-end generates native code for x86 processes and is used
+The HARP back-end generates native code for x86 processors and is used
 on Windows, FreeBSD and Linux. While for many years, this was our best
 and most mature compiler back-end, it is falling by the wayside and will
 be replaced by the LLVM back-end.
 
-The issues with the HARP back-end is that it is 32-bit only and is
+The issues with the HARP back-end are that it is 32-bit only and is
 more difficult to add support for things like new instructions, better
 scheduling, atomic operations and SSE support.
 
@@ -49,8 +49,8 @@ both x86 and x86_64 processors.
 
 The LLVM compiler back-end is much easier to maintain and generates
 significantly better code than either of the other back-ends. It is also
-much easier than HARP to extend to support new processors features and
-things like atomic and SSE operations.
+much easier than HARP to extend to support new processors and features,
+like atomic and SSE operations.
 
 The LLVM back-end will enable debugging at the Dylan source level as it
 emits DWARF debug data and will be functional with LLDB.
