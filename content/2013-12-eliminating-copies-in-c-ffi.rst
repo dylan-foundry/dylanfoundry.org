@@ -56,8 +56,9 @@ If we were just dealing with strings, we could use Open Dylan primitives,
 ``primitive-string-as-raw`` gives us access to the raw internal storage
 of a ``<byte-string>`` which is guaranteed to be NULL terminated.
 
-However, this doesn't give us a solution for other byte container types, so
-we'll move along without going through all of the details.
+However, this doesn't solve our problem as it doesn't provide us with an
+answer for other byte container types, so we'll move along without
+going through all of the details.
 
 An Excursion Into Run-time Representations
 ==========================================
