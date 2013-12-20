@@ -188,6 +188,7 @@ of the original byte container:
           primitive-wrap-machine-word
             (primitive-repeated-slot-as-raw
                (the-buffer, primitive-repeated-slot-offset(the-buffer))))
+    end function;
 
 Another Example
 ===============
