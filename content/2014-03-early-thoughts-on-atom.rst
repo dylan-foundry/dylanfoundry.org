@@ -5,7 +5,7 @@ Early Thoughts on Atom
 :date: 2014-2-28
 :tags: Atom, Editor Support
 
-I got a beta of the Atom editor soon after its initial release.  The first
+I got a beta of the `Atom`_ editor soon after its initial release.  The first
 thing that I decided to do was to add support for the `Dylan language`_.
 
 As we had a Textmate bundle available, this was an easy process::
@@ -139,6 +139,7 @@ optimizer works?
 For now, it is a great time to just settle down, see how things develop,
 and quietly build great things.
 
+.. _Atom: http://atom.io/
 .. _Dylan language: http://opendylan.org/
 .. _David Nolen: https://twitter.com/swannodette
 .. _Om, React, and ClojureScript: http://sgrove.github.io/omchaya/docs/presentation.html
