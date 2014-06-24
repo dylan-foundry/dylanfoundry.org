@@ -2,9 +2,8 @@ Reducing Dispatch Overhead
 ##########################
 
 :author: Bruce Mitchener, Jr.
-:date: 2014-6-xx
+:date: 2014-6-24
 :tags: Performance, Method Dispatch
-:status: draft
 
 Method dispatch in Dylan is the process by which the compiler and run-time
 collaborate to choose the right implementation of a function to call. This
@@ -133,3 +132,5 @@ This can have varying causes:
 * The compiler can't figure out enough about the types of objects
   involved to find a more specific method.
 * Generic dispatch is actually required at this call-site.
+
+We'll look into some of these things in future blog posts.
