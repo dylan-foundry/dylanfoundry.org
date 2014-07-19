@@ -95,17 +95,12 @@ If, instead, we operate with a signature like::
   (<http-server>, <request>) => (<response>)
 
 Then we can ensure that all headers are set during the creation of the
-response and now allow setting additional headers. This is a nice bit
+response and not allow setting additional headers. This is a nice bit
 of safety that falls out of a fairly simple change, but it doesn't have
 much to do with stream processing.
 
-A downside to both of the above type signatures is that, given the current
-implementation of everything, they require that the request be fully read
-and that the response be fully generated before the thread is released and
-can be used to handle another request.
-
-As a result, we would see the code for handling a connection become something
-like:
+As a result of the change to the signature of routing a request, we would
+see the code for handling a connection become something like:
 
 .. code-block:: dylan
 
@@ -113,6 +108,11 @@ like:
   read-request(request);
   let response = route-request(*server*, request);
   finish-response(response);
+
+A downside to both of the above type signatures is that, given the current
+implementation of everything, they require that the request be fully read
+and that the response be fully generated before the thread is released and
+can be used to handle another request.
 
 
 How can Streams improve this?
@@ -166,7 +166,7 @@ limitations on the maximum allowed body size.)
 
 This isn't all that exciting or interesting, although it is a solid win.
 
-Another area for improvement is that decoding of the byte vectors read
+Another area for improvement is that the byte vectors read
 from the network stream will need to be decoded into strings or other
 objects (JSON, `CBOR`_, XML, etc.). This can be handled by stages
 within the stream processing pipeline.
