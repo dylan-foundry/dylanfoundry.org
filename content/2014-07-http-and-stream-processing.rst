@@ -41,7 +41,7 @@ after some unnecessary details have been removed:
 .. code-block:: dylan
 
   *request* := make(client.client-server.request-class, client: client);
-  let request :: <basic-request> = *request*;
+  let request :: <request> = *request*;
   read-request(request);
   let response = make(<response>, request: request);
   if (request.request-keep-alive?)
@@ -130,8 +130,8 @@ Currently, the request is implemented as:
 
 .. code-block:: dylan
 
-  define open primary class <request>
-      (<chunking-input-stream>, <basic-request>, <base-http-request>)
+  define open primary class <request> (<chunking-input-stream>,
+                                       <base-http-request>)
     ... slots elided ...
   end class <request>;
 
