@@ -10,7 +10,7 @@ As we discussed in the `previous post`_, we are thinking about a new design
 and implementation for the streams library in `Open Dylan`_.
 
 While the examples in this post are in Dylan and are using code from our
-HTTP server, these issues exist in many HTTP frameworks in many languages.
+HTTP server, these issues exist in HTTP frameworks in other languages.
 The code should be clear enough that little to no Dylan knowledge is required
 to understand the points being made here.
 
