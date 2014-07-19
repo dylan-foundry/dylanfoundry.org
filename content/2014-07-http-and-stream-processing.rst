@@ -32,6 +32,9 @@ us solve the above issues. This can help inform the design of the new
 streams API as well as help to make it clear why a new streams API
 will be useful.
 
+Other frameworks are already moving in this direction. One example is
+`http4s`_ which builds on `scalaz-stream`_.
+
 How does the HTTP server work currently?
 ========================================
 
@@ -247,3 +250,5 @@ would expect to use the stream processing code with.
 .. _Server Sent Events: http://www.w3.org/TR/eventsource/
 .. _WebSockets: http://tools.ietf.org/html/rfc6455
 .. _CBOR: http://cbor.io/
+.. _http4s: http://http4s.org/
+.. _scalaz-stream: https://github.com/scalaz/scalaz-stream
