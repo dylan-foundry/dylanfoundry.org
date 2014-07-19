@@ -40,36 +40,10 @@ after some unnecessary details have been removed:
 
 .. code-block:: dylan
 
-  *request* := make(client.client-server.request-class, client: client);
-  let request :: <request> = *request*;
+  let request = make(<request>, client: client);
   read-request(request);
   let response = make(<response>, request: request);
-  if (request.request-keep-alive?)
-    set-header(response, "Connection", "Keep-Alive");
-  end if;
-  dynamic-bind (*response* = response)
-    route-request(*server*, request);
-    finish-response(*response*);
-  end dynamic-bind;
-
-Just to get it out of the way immediately, there are some unfortunate
-things happening here already:
-
-* ``*request*`` and ``*response*`` are available as thread-specific
-  globals.
-* We set the ``Connection`` header at a strange time. We could set
-  this in the constructor for the ``<response>`` instead, for example.
-* As mentioned above, it doesn't handle long-lasting responses well,
-  like `Server Sent Events`_ or `WebSockets`_.
-
-A first set of improvements might streamline this code to be:
-
-.. code-block:: dylan
-
-  let request = make(client.client-server.request-class, client: client);
-  read-request(request);
-  let response = make(<response>, request: request);
-  route-request(*server*, request, response);
+  route-request(server, request, response);
   finish-response(response);
 
 
@@ -104,9 +78,9 @@ see the code for handling a connection become something like:
 
 .. code-block:: dylan
 
-  let request = make(client.client-server.request-class, client: client);
+  let request = make(<request>, client: client);
   read-request(request);
-  let response = route-request(*server*, request);
+  let response = route-request(server, request);
   finish-response(response);
 
 A downside to both of the above type signatures is that, given the current
@@ -126,57 +100,27 @@ Reading Requests
 * Requests are read in their entirety into memory, so a large request (such
   as a file upload) takes a significant amount of memory.
 
-Currently, the request is implemented as:
+This can already largely be addressed by the current Dylan streams library,
+so long as we maintain the current assumption that reads can be blocking.
 
-.. code-block:: dylan
+By moving to demand-driven, compositional streams though, we can make
+a couple of improvements:
 
-  define open primary class <request> (<chunking-input-stream>,
-                                       <base-http-request>)
-    ... slots elided ...
-  end class <request>;
-
-  // Pass along the socket as the inner-stream for <chunking-input-stream>,
-  // which is a <wrapper-stream>.
-  define method make
-      (class :: subclass(<request>), #rest args, #key client :: <client>, #all-keys)
-   => (request :: <request>)
-    apply(next-method, class, inner-stream: client.client-socket, args)
-  end;
-
-  define method read-request (request :: <request>) => ()
-    ...
-    parse-request-line(server, request, buffer, len);
-    read-message-headers(socket,
-                         buffer: buffer,
-                         start: len,
-                         headers: request.raw-headers);
-    process-incoming-headers(request);
-    read-request-content(request);
-  end method read-request;
-
-We'll want to revisit this some when we get to talking about non-blocking
-sockets. Also, to be fair, I edited out some comments about not reading the
-entire request content as a future TODO item.
-
-One thing we should change here is to make the ``<request>`` not inherit
-from a stream but to represent the *request-body* as a stream. In this way,
-handlers can read from the *request-body* stream as they need and impose
-their own limits and restrictions on it. (An example might be varying
-limitations on the maximum allowed body size.)
-
-This isn't all that exciting or interesting, although it is a solid win.
-
-Another area for improvement is that the byte vectors read
-from the network stream will need to be decoded into strings or other
-objects (JSON, `CBOR`_, XML, etc.). This can be handled by stages
-within the stream processing pipeline.
+* Response handlers can read from the request's stream as they need and
+  impose their own limits and restrictions on it without reading all of
+  the data into memory. (An example might be varying limitations on the
+  maximum allowed body size.)
+* Byte vectors read from the network stream will need to be decoded into
+  strings or other objects (JSON, `CBOR`_, XML, etc.). This can be handled
+  by stages within the stream processing pipeline.
 
 Writing Responses
 -----------------
 
 * Responses often buffer their entire output in memory as well.
 
-This one is actually pretty easy!
+This one is actually pretty easy! This is also already largely handled
+by our existing streams library.
 
 Currently, a ``<response>`` contains an output stream which is used
 to implement HTTP/1.1 chunking (when allowed) and to handle output.
@@ -199,8 +143,8 @@ of the I/O as it arrives rather than assuming that the entire HTTP
 request is available at once or that it is okay to perform a
 blocking read request.
 
-Reviewing the code for ``read-request`` from above, we can see that
-the way that it is written now does not support such a thing:
+Reviewing the code for ``read-request``, we can see that the way that
+it is written now does not support non-blocking reads:
 
 .. code-block:: dylan
 
@@ -238,7 +182,7 @@ conceptually like this:
 .. code-block:: dylan
 
   ...
-  let response = route-request(*server*, request);
+  let response = route-request(server, request);
   finish-response(response);
 
 Instead of finishing the response here, we want to set things up so that
