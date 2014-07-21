@@ -53,7 +53,8 @@ focus of libraries in Haskell such as `pipes`_, `conduit`_, and
 There is a new effort afoot to provide similar capabilities for
 Java and Scala via `Reactive Streams`_.  A library that implements
 some similar concepts for networking code, although not in a
-functional programming manner, is `Netty`_.
+functional programming manner, is `Netty`_. Another approach is taken
+in the Play framework with `Iteratees`_.
 
 Some of the primary concerns driving these more recent stream processing
 libraries are:
@@ -206,6 +207,7 @@ this in the next blog post about stream processing and HTTP.
 .. _scalaz-stream: https://github.com/scalaz/scalaz-stream/
 .. _Reactive Streams: http://www.reactive-streams.org/
 .. _Netty: http://netty.io/
+.. _Iteratees: http://www.playframework.com/documentation/2.0/Iteratees
 .. _network-conduit examples: http://www.yesodweb.com/blog/2014/03/network-conduit-async
 .. _scalaz-stream examples: https://github.com/scalaz/scalaz-stream/blob/master/src/test/scala/scalaz/stream/examples/StartHere.scala
 .. _Twisted: https://twistedmatrix.com/trac/
