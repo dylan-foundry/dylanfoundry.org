@@ -2,9 +2,8 @@ Beginning to Rethink Streams
 ############################
 
 :author: Bruce Mitchener, Jr.
-:date: 2014-7-18
+:date: 2014-7-25
 :tags: Streams, Dylan 2016
-:status: draft
 
 Dylan's current ``streams`` library has served us moderately well
 over the years. However, it has some issues which can be addressed

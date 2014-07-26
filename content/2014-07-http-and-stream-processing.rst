@@ -2,9 +2,8 @@ HTTP and Stream Processing
 ##########################
 
 :author: Bruce Mitchener, Jr.
-:date: 2014-7-19
+:date: 2014-7-26
 :tags: Streams, Dylan 2016, HTTP
-:status: draft
 
 As we discussed in the `previous post`_, we are thinking about a new design
 and implementation for the streams library in `Open Dylan`_.
