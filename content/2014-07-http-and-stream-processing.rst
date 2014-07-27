@@ -244,7 +244,7 @@ we have a better idea of the sorts of use cases and problems that we
 would expect to use the stream processing code with.
 
 
-.. _previous post: http://dylanfoundry.org/drafts/beginning-to-rethink-streams.html
+.. _previous post: http://dylanfoundry.org/2014/07/25/beginning-to-rethink-streams/
 .. _Open Dylan: http://opendylan.org/
 .. _Server Sent Events: http://www.w3.org/TR/eventsource/
 .. _WebSockets: http://tools.ietf.org/html/rfc6455
