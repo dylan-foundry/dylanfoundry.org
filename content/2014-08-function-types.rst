@@ -118,7 +118,9 @@ complex is in the ``map`` function:
 
 Ignoring the lack of parametric polymorphism, which we'll deal with in a
 future blog post, it is clear that it would be nice to have more detail
-about what sort of function should be passed to ``map``.
+about what sort of function should be passed to ``map``. We would like
+to have a way to specify that the function passed to map should have
+a signature congruent with ``(<object>) => (<object>)``.
 
 Optimization Is More Difficult
 ------------------------------
@@ -214,6 +216,28 @@ and ``#key`` arguments, as well as future language extensions such as
 parametric polymorphism. This syntax was implemented with some specialized
 code when parsing function signatures within ``dfmc-definitions``.
 
+A proposal has been made by Carl Gay that I like a lot. Instead of
+stand-alone syntax like that employed by Hannes, the signature can be
+wrapped in what looks like a function call:
+
+.. code-block:: dylan
+
+  fn(<string> => <boolean>)
+
+This provides a more Dylan-like surface syntax and is readily able to support
+``#rest`` and ``#key`` parameters:
+
+.. code-block:: dylan
+
+  fn(<string>, #key instance?, #all-keys => ())
+
+By using a macro to implement ``fn``, it can produce a ``<signature>``,
+letting this map into creating an instance of a function type:
+
+.. code-block:: dylan
+
+  limited(<function>, signature: sig)
+
 This area will be a subject of discussion for some time and will probably
 involve some experimentation.
 
@@ -224,14 +248,32 @@ The first place to hook up function types is by implementing them as
 *limited functions* within ``dfmc-modeling``. This is where the compile
 time and run-time representations of objects are managed.
 
+Apart from the topic covered in the next section, the basics of this are
+fairly straight forward (using ``&class`` and ``&slot`` syntax available
+within the compiler):
+
+.. code-block:: dylan
+
+  define primary &class <limited-function> (<limited-type>)
+    constant &slot limited-function-signature :: <signature>,
+      required-init-keyword: signature:;
+  end;
+
+  define method ^base-type (lf :: <limited-function>
+   => (type :: <&type>)
+    dylan-value(#"<function>")
+  end;
+
+The complicated part is defining how function types interact with
+the type system.
+
 Instance, Subtype and Disjoint Relations
 ----------------------------------------
 
-Another aspect of the design of function types will be determining how
-function types should fit into the existing ``instance?``, ``subtype?``
-and ``known-disjoint?`` relationships between types. The main problem
-here will be determining the rules for relationships between any two
-given function types.
+It is necessary to determine how function types should fit into the
+existing ``instance?``, ``subtype?`` and ``known-disjoint?`` relationships
+between types. The main problem here will be determining the rules for
+relationships between any two given function types.
 
 This will need to be fully worked out as part of writing a DEP (Dylan
 Enhancement Proposal), but an initial take on this has already been
@@ -250,6 +292,29 @@ the compiler as there are 3 implementations:
 
 It would be nice to find a way to simplify and improve this. In the
 Gwydion Dylan compiler, for example, there was a single implementation.
+
+Interaction With Currying and Partial Application
+-------------------------------------------------
+
+Currently, when using ``curry``, ``rcurry`` or the partial application
+extension to the Dylan language, the generated functions do not have
+very useful type signatures.  This can be seen by peeking at the
+implementation of ``curry``:
+
+.. code-block:: dylan
+
+  define inline function curry
+      (function :: <function>, #rest curried-args) => (result :: <function>)
+    method (#rest args)
+      %dynamic-extent(args);
+      apply(function, concatenate-2(curried-args, args))
+    end method
+  end function curry;
+
+We can see here that the compiler has lost all knowledge that it
+might otherwise have had about the arguments, types and keyword
+parameters that the curried function might take. This is unfortunate
+and it would be nice to address it.
 
 Other Implementation Issues
 ---------------------------
