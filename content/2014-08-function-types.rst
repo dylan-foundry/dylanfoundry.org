@@ -199,7 +199,8 @@ However, when applying that to functions, this would be pretty verbose:
 
 .. code-block:: dylan
 
-  limited(<function>, specializers: #[<string>], return-types: #[<boolean>])
+  limited(<function>, specializers: vector(<string>),
+          return-types: vector(<boolean>))
 
 This proposal did not support specifying ``#rest`` or ``#key`` arguments.
 
@@ -277,7 +278,7 @@ within the compiler):
       required-init-keyword: signature:;
   end;
 
-  define method ^base-type (lf :: <limited-function>
+  define method ^base-type (lf :: <limited-function>)
    => (type :: <&type>)
     dylan-value(#"<function>")
   end;
