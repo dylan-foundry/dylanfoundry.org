@@ -5,11 +5,11 @@ Function Types and Dylan 2016
 :date: 2014-8-01
 :tags: Dylan 2016
 
-Moving towards **Dylan 2016**, we would like to address some weaknesses
-in the language specification and what can be readily expressed in Dylan
-code. In this post, we'll talk about function types as well as provide
-a brief introduction to some details of the type system implementation
-within the Open Dylan compiler.
+Moving towards Dylan 2016, the Dylan community would like to address
+some weaknesses in the language specification and what can be readily
+expressed in Dylan code. In this post, we'll look at function types
+as well as provide a brief introduction to some details of the type
+system implementation within the Open Dylan compiler.
 
 
 Function Types
@@ -117,8 +117,8 @@ complex is in the ``map`` function:
        #rest more-colls :: <collection>)
    => (new-collection :: <collection>);
 
-Ignoring the lack of parametric polymorphism, which we'll deal with in a
-future blog post, it is clear that it would be nice to have more detail
+Ignoring the lack of parametric polymorphism, which will be dealt with in
+a future blog post, it is clear that it would be nice to have more detail
 about what sort of function should be passed to ``map``. We would like
 to have a way to specify that the function passed to map should have
 a signature congruent with ``(<object>) => (<object>)``.
@@ -172,9 +172,8 @@ be of type ``<integer>``. So we can infer that ``x`` is an ``<integer>``
 for the subsequent uses of ``x`` after ``let y = bar(x)`` (assuming
 nothing assigns a new value to it).
 
-**Note:** *See if this is actually valid. We may already effectively
-have this bit of type inference due to some other aspects of the
-type system.*
+**Note:** *See if this is actually valid. This may already effectively
+be in place due to some other aspects of the type system.*
 
 
 Adding Function Types to Open Dylan
@@ -239,8 +238,7 @@ function type, including the desired signature:
 
   limited(<function>, signature: sig)
 
-We can see how this syntax makes the definition of a generic more
-understandable:
+This syntax makes the definition of a generic more understandable:
 
 .. code-block:: dylan
 
@@ -341,14 +339,14 @@ Library Improvements
 
 Functions defined in the standard library as well as various libraries
 that Open Dylan ships with should be modified to use function types.
-Optimal amounts of type safety will not yet be possible as we don't yet
-support parametric polymorphism, but first steps using function types
-can be made.
+Optimal amounts of type safety will not yet be possible as Open Dylan
+doesn't yet support parametric polymorphism, but first steps using
+function types can be made.
 
 Other Implementation Issues
 ---------------------------
 
-We don't really know yet what else will have to be changed to support
+I don't really know yet what else will have to be changed to support
 function types within the compiler. Presumably, some changes will be
 required to the optimizer and perhaps code generation.
 
@@ -364,7 +362,7 @@ Testing
 
 While the ``dfmc-testing`` project has been brought back to life recently
 for testing compiler internals, it doesn't perform sufficient tests of
-subtyping and other areas yet. We will extend it to better test the areas
+subtyping and other areas yet. It will be extended to better test the areas
 of the code that are being modified to support function types.
 
 Some test improvements will also be needed within the tests for the
