@@ -22,7 +22,7 @@ of type ``<function>`` and can't indicate anything about the desired
 signature, types of arguments, return values, etc. This is unfortunate
 for a number of reasons:
 
-* **Poor type safety.** The compiler can't verify almost anything
+* **Poor static type safety.** The compiler can't verify almost anything
   involving a function value.  It can't warn when the wrong number
   of arguments or the wrong types of arguments are passed.
 * **Less clear interfaces.** The type signature of a function must
@@ -85,8 +85,8 @@ Given Dylan as it is today, this could be tightened up and specified as:
   slot parsed-pattern :: limited(<vector>,
                                  of: type-union(<string>, <function>));
 
-Poor Type Safety
-----------------
+Poor Static Type Safety
+-----------------------
 
 In the above example, the compiler can't check to verify that the
 correct arguments are passed to ``item``. When constructing the
@@ -231,8 +231,8 @@ This provides a more Dylan-like surface syntax and is readily able to support
 
   fn(<string>, #key instance?, #all-keys => ())
 
-By using a macro to implement ``fn``, it can produce a ``<signature>``,
-letting this map into creating an instance of a function type:
+By using a macro to implement ``fn``, it can produce an instance of a
+function type, including the desired signature:
 
 .. code-block:: dylan
 
@@ -316,6 +316,15 @@ might otherwise have had about the arguments, types and keyword
 parameters that the curried function might take. This is unfortunate
 and it would be nice to address it.
 
+Library Improvements
+--------------------
+
+Functions defined in the standard library as well as various libraries
+that Open Dylan ships with should be modified to use function types.
+Optimal amounts of type safety will not yet be possible as we don't yet
+support parametric polymorphism, but first steps using function types
+can be made.
+
 Other Implementation Issues
 ---------------------------
 
@@ -323,12 +332,40 @@ We don't really know yet what else will have to be changed to support
 function types within the compiler. Presumably, some changes will be
 required to the optimizer and perhaps code generation.
 
+Some known areas to fix are:
+
+* ``check-function-call`` in ``sources/dfmc/optimization/dispatch.dylan``.
+  This attempts to validate call compatibility. It currently doesn't
+  check if it doesn't know the function object involved.
+* Error messages will need improvement and further work.
+
+Testing
+-------
+
+While the ``dfmc-testing`` project has been brought back to life recently
+for testing compiler internals, it doesn't perform sufficient tests of
+subtyping and other areas yet. We will extend it to better test the areas
+of the code that are being modified to support function types.
+
+Some test improvements will also be needed within the tests for the
+``dylan`` library.
+
+
+Getting Started
+===============
+
+If this sounds like something you'd be interested in helping to work on,
+please let us know in the ``#dylan`` channel on irc.freenode.net. There
+are many opportunities to help out, as described above. Bruce Mitchener
+has already started a branch that is in the early stages of supporting
+function types.
+
 
 In Closing
 ==========
 
 Adding function types to the Dylan language and the Open Dylan
-compiler will be an interesting project, involving a wide range of
+compiler is an interesting project, involving a wide range of
 changes across the compiler codebase. It will provide functionality
 that people have wanted from Dylan practically since Dylan was
 created in the early 1990s.
