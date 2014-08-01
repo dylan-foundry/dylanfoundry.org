@@ -50,7 +50,9 @@ language. According to a comment by Kim Barrett in 2001:
 There were also discussions about function types as far back as 1992
 and 1993 in the early "Dylan partners" communications between Apple,
 CMU, and Harlequin.  As such, it is clear that this will be an effort
-that will require some time and patience to get right.
+that will require some time and patience to get right. That said,
+function types are common in other modern programming languages,
+especially those from the ML school.
 
 A Motivating Case
 -----------------
