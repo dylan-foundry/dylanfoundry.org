@@ -22,7 +22,7 @@ of type ``<function>`` and can't indicate anything about the desired
 signature, types of arguments, return values, etc. This is unfortunate
 for a number of reasons:
 
-* **Poor static type safety.** The compiler can't verify almost anything
+* **Poor static type safety.** The compiler can verify very little
   involving a function value.  It can't warn when the wrong number
   of arguments or the wrong types of arguments are passed.
 * **Less clear interfaces.** The type signature of a function must
