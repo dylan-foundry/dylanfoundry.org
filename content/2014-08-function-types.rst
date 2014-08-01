@@ -240,6 +240,25 @@ function type, including the desired signature:
 
   limited(<function>, signature: sig)
 
+We can see how this syntax makes the definition of a generic more
+understandable:
+
+.. code-block:: dylan
+
+  define sealed generic map
+      (fn :: <function>, coll :: <collection>,
+       #rest more-colls :: <collection>)
+   => (new-collection :: <collection>);
+
+  // And now using function types
+  define sealed generic map
+      (fn :: fn(<object> => <object>), coll :: <collection>,
+       #rest more-colls :: <collection>)
+   => (new-collection :: <collection>);
+
+This example also shows that further improvements to the type system,
+such as parametric polymorphism, will be very useful (and welcome).
+
 This area will be a subject of discussion for some time and will probably
 involve some experimentation.
 
