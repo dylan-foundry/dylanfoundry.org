@@ -2,9 +2,8 @@ Function Types and Dylan 2016
 #############################
 
 :author: Bruce Mitchener, Jr.
-:date: 2014-8-16
+:date: 2014-8-01
 :tags: Dylan 2016
-:status: draft
 
 Moving towards **Dylan 2016**, we would like to address some weaknesses
 in the language specification and what can be readily expressed in Dylan
