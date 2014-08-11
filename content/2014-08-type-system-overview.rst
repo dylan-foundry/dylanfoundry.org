@@ -107,7 +107,33 @@ is a common way to implement a factory method in Dylan.)
 Dispatch vs Pattern Matching
 ----------------------------
 
-...
+Dylan lacks support for the full range of pattern matching capabilities
+that can be found in other languages, especially those from the ML
+family.
+
+However, some aspects can be implemented using method dispatch and
+how that interacts with the type system.
+
+In Haskell, a very simple implementation for generating the Fibonacci
+sequence might look like:
+
+.. code-block:: haskell
+
+  fib :: Integer -> Integer
+  fib 0 = 1
+  fib 1 = 1
+  fib n = fib (n-1) + fib (n-2)
+
+In Dylan, we would represent this using methods defined with singleton
+types:
+
+.. code-block:: dylan
+
+  define method fib (n == 0) 1 end;
+  define method fib (n == 1) 1 end;
+  define method fib (n)
+    fib(n - 1) + fib(n - 2)
+  end;
 
 .. _described in the DRM: http://opendylan.org/books/drm/Types_and_Classes_Overview
 .. _in a bit more detail: http://opendylan.org/books/drm/Singletons
