@@ -14,6 +14,14 @@ found in many languages such as singleton types.
 How is the type system used?
 ============================
 
+The DRM doesn't specify much about how the type system should be used
+and enforced. In general, it assumes that at a minimum, run-time enforcement
+via type checks will occur, and leaves any further checks and optimization
+up to the implementation.
+
+In practice though, the Open Dylan compiler makes extensive use of
+type annotations at compile time.
+
 Variable bindings
 -----------------
 
@@ -38,14 +46,27 @@ As `described in the DRM`_:
     Implementations may add additional kinds of types. The language does
     not define any way for programmers to define new subclasses of ``<type>``.
 
-As the language does not define a mechanism for programmers to define new
-types, this is left to the implementation.
-
+This means that functions can return instances of a type and type objects
+are treated like any other value in Dylan. This is used in many places,
+including ``type-for-copy`` in the standard library.
 
 Extending The Type System
 =========================
 
-...
+As the language does not define a mechanism for programmers to define new
+types, this is left to the implementation.
+
+In Open Dylan, this is currently limited to providing refinements on vectors
+via ``limited(<vector>, of: ...)`` and new instances of the ``<limited-integer>``
+type (which allows specifying the bounds on allowable integer values).
+
+It would be interesting to look at what is involved in adding a new type
+without compiler modifications, but that is not currently permissible in
+the Open Dylan implementation. This sounds like a pretty interesting topic
+though, so we'll likely take a look at it in a future blog post and set
+of patches to Open Dylan. (An example of a new type would be generating
+a type that represents constrained values based on a schema definition.)
+
 
 Interesting Features
 ====================
@@ -54,7 +75,7 @@ Singleton Types
 ---------------
 
 What Dylan calls *singleton types* are a way to create a new type that indicates
-that an individual object. This is commonly used in method dispatch:
+that an individual object is expected. This is commonly used in method dispatch:
 
 .. code-block:: dylan
 
