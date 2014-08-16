@@ -11,6 +11,26 @@ of the Dylan language. Although it lacks some forms of expressiveness
 in the current incarnation, it also has some features that aren't
 found in many languages such as singleton types.
 
+Type and Value Relationships
+============================
+
+There are 2 important relationships between values and types in Dylan.
+
+They are ``instance?`` and ``subtype?``. Other relationships, such as
+``known-disjoint?`` are used within the compiler to assist with type
+inference, but these other relationships are not regularly of use to
+the typical Dylan programmer.
+
+``instance?``
+-------------
+
+...
+
+``subtype?``
+------------
+
+...
+
 How is the type system used?
 ============================
 
@@ -25,7 +45,12 @@ type annotations at compile time.
 Variable bindings
 -----------------
 
-...
+A variable may have its type restricted by specifying a type:
+
+.. code-block:: dylan
+
+  let x = 123; // x can be re-assigned to any type of value
+  let y :: <integer> = 123; // the type of y must be a subtype of <integer>
 
 Method Dispatch
 ---------------
@@ -37,39 +62,15 @@ Compile vs Run Time
 
 ...
 
-Types Are Values
-================
+Kinds of Types
+==============
 
-As `described in the DRM`_:
+The DRM specifies 4 kinds of types:
 
-    All types are first class objects, and are general instances of ``<type>``.
-    Implementations may add additional kinds of types. The language does
-    not define any way for programmers to define new subclasses of ``<type>``.
-
-This means that functions can return instances of a type and type objects
-are treated like any other value in Dylan. This is used in many places,
-including ``type-for-copy`` in the standard library.
-
-Extending The Type System
-=========================
-
-As the language does not define a mechanism for programmers to define new
-types, this is left to the implementation.
-
-In Open Dylan, this is currently limited to providing refinements on vectors
-via ``limited(<vector>, of: ...)`` and new instances of the ``<limited-integer>``
-type (which allows specifying the bounds on allowable integer values).
-
-It would be interesting to look at what is involved in adding a new type
-without compiler modifications, but that is not currently permissible in
-the Open Dylan implementation. This sounds like a pretty interesting topic
-though, so we'll likely take a look at it in a future blog post and set
-of patches to Open Dylan. (An example of a new type would be generating
-a type that represents constrained values based on a schema definition.)
-
-
-Interesting Features
-====================
+* Classes
+* Limited Types
+* Union Types
+* Singleton Types
 
 Singleton Types
 ---------------
@@ -127,36 +128,36 @@ should be used to instantiate the file stream. (This way of implementing
 a ``make`` method specialized on an abstract class like ``<file-stream>``
 is a common way to implement a factory method in Dylan.)
 
-Dispatch vs Pattern Matching
-----------------------------
+Types Are Values
+================
 
-Dylan lacks support for the full range of pattern matching capabilities
-that can be found in other languages, especially those from the ML
-family.
+As `described in the DRM`_:
 
-However, some aspects can be implemented using method dispatch and
-how that interacts with the type system.
+    All types are first class objects, and are general instances of ``<type>``.
+    Implementations may add additional kinds of types. The language does
+    not define any way for programmers to define new subclasses of ``<type>``.
 
-In Haskell, a very simple implementation for generating the Fibonacci
-sequence might look like:
+This means that functions can return instances of a type and type objects
+are treated like any other value in Dylan. This is used in many places,
+including ``type-for-copy`` in the standard library.
 
-.. code-block:: haskell
+Extending The Type System
+=========================
 
-  fib :: Integer -> Integer
-  fib 0 = 1
-  fib 1 = 1
-  fib n = fib (n-1) + fib (n-2)
+As the language does not define a mechanism for programmers to define new
+types, this is left to the implementation.
 
-In Dylan, we would represent this using methods defined with singleton
-types:
+In Open Dylan, this is currently limited to providing refinements on vectors
+via ``limited(<vector>, of: ...)`` and new instances of the ``<limited-integer>``
+type (which allows specifying the bounds on allowable integer values).
 
-.. code-block:: dylan
+It would be interesting to look at what is involved in adding a new type
+without compiler modifications, but that is not currently permissible in
+the Open Dylan implementation. This sounds like a pretty interesting topic
+though, so we'll likely take a look at it in a future blog post and set
+of patches to Open Dylan. (An example of a new type would be generating
+a type that represents constrained values based on a schema definition.)
 
-  define method fib (n == 0) 1 end;
-  define method fib (n == 1) 1 end;
-  define method fib (n)
-    fib(n - 1) + fib(n - 2)
-  end;
 
 .. _described in the DRM: http://opendylan.org/books/drm/Types_and_Classes_Overview
 .. _in a bit more detail: http://opendylan.org/books/drm/Singletons
