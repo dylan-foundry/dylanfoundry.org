@@ -36,30 +36,30 @@ While limited types can be very useful, they are unfortunately, limited
 in that usefulness. This limited usefulness is caused by a couple of
 factors:
 
+* Limited types are restricted to a particular set of classes, requiring
+  run-time and compiler support.
 * Constraints on limited types, such as size or the range of valid integer
   values, require compiler-side support and are not as expressive
   as they might be with respect to the constraints that can be imposed.
-* Limited types are restricted to a particular set of classes, requiring
-  run-time and compiler support.
 
 If we were to generalize limited types, we can begin to see how limited
 the existing design is. Looking at computer science research, there are
 a couple of interesting areas of research and development within the
 type system world that are applicable here:
 
-* Refinement Types
 * Parametric Polymorphism
+* Refinement Types
 
 Both of these techniques are more common in the ML world and have been
 active areas of research over the last 25 years (or longer).
 
-Refinement Types
-================
+Parametric Polymorphism
+=======================
 
 ...
 
-Parametric Polymorphism
-=======================
+Refinement Types
+================
 
 ...
 
