@@ -3,7 +3,7 @@ Function Types and Dylan 2016
 
 :author: Bruce Mitchener, Jr.
 :date: 2014-8-01
-:tags: Dylan 2016
+:tags: Dylan 2016, Type System
 
 Moving towards Dylan 2016, the Dylan community would like to address
 some weaknesses in the language specification and what can be readily

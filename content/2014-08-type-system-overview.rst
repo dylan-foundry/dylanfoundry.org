@@ -3,7 +3,7 @@ Type System Overview
 
 :author: Bruce Mitchener, Jr.
 :date: 2014-8-21
-:tags:
+:tags: Type System
 :status: draft
 
 The type system and how it is used is a commonly misunderstood aspect

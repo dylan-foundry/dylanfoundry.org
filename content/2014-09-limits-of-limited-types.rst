@@ -3,7 +3,7 @@ The Limits of Limited Types
 
 :author: Bruce Mitchener, Jr.
 :date: 2014-9-10
-:tags: 
+:tags: Type System
 :status: draft
 
 What Are Limited Types?
