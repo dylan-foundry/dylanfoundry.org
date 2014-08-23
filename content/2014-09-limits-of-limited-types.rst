@@ -74,7 +74,7 @@ I can make some guesses:
 * As we'll see below, some of the exciting new type system designs
   are based on other research which has only recently come into
   maturity. An example of this are systems which employ SMT
-  (Satisfiability Modulo Theories) solvers.
+  (`Satisfiability Modulo Theories`_) solvers.
 
 *Note: I should drop David Moon and others an email perhaps and ask
 about this.*
@@ -106,3 +106,7 @@ How Can We Improve Dylan?
 =========================
 
 That's a great question!
+
+...
+
+.. _Satisfiability Modulo Theories: http://en.wikipedia.org/wiki/Satisfiability_Modulo_Theories
