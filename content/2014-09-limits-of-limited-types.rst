@@ -27,7 +27,7 @@ two scenarios typically:
   .. code-block:: dylan
 
     let <integer-vector> = limited(<vector>, of: <integer>);
-    let <point> = limited(<vector>, of: <integer>, size: 3);
+    let <veci3> = limited(<vector>, of: <integer>, size: 3);
 
 Like many elements of the Dylan design, these clearly came from Common Lisp,
 where integer types can specify upper and lower bounds, and collections
