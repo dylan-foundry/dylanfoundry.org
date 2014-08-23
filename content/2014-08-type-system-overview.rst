@@ -11,6 +11,7 @@ of the Dylan language. Although it lacks some forms of expressiveness
 in the current incarnation, it also has some features that aren't
 found in many languages such as singleton types.
 
+
 Type and Value Relationships
 ============================
 
@@ -24,12 +25,33 @@ the typical Dylan programmer.
 ``instance?``
 -------------
 
-...
+The ``instance?`` relationship holds between a value and a type. A
+value can be an instance of a type (or not).
 
 ``subtype?``
 ------------
 
-...
+The ``subtype?`` relationship holds between two types. One type can
+be a subtype of another type. When a type A is a subtype of type B,
+then an instance of A can be used anywhere that expects an instance
+of B.
+
+From the DRM:
+
+    The following is an informal description of type relationships: The
+    function subtype? defines a partial ordering of all types. Type *t1*
+    is a subtype of type *t2* (i.e., ``subtype?(t1, t2)`` is true) if it
+    is impossible to encounter an object that is an instance of *t1* but
+    not an instance of *t2*. It follows that every type is a subtype of
+    itself.  Two types *t1* and *t2* are said to be **equivalent types**
+    if ``subtype?(t1, t2)`` and ``subtype?(t2, t1)`` are both true. *t1*
+    is said to be a **proper subtype** of *t2* if *t1* is a subtype of
+    *t2* and *t2* is not a subtype of *t1*.
+
+As we will discuss below, there are multiple kinds of types and each
+kind of type defines its own rules for how subtype relationships involving
+that kind of type operate.
+
 
 How is the type system used?
 ============================
@@ -50,17 +72,28 @@ A variable may have its type restricted by specifying a type:
 .. code-block:: dylan
 
   let x = 123; // x can be re-assigned to any type of value
-  let y :: <integer> = 123; // the type of y must be a subtype of <integer>
+  let y :: <integer> = 123; // the value of y must be an instance of <integer>
 
 Method Dispatch
 ---------------
 
-...
+The type system plays a very important role in method dispatch. Method
+dispatch is the act (or art) of choosing which of several possible methods
+should be invoked for a given set of arguments. This is covered in some
+depth in the `Method Dispatch section of the DRM`_.
+
+Two important things to note here are
+
+* ``subtype?`` relationships are a key part of ordering methods and choosing
+  which one to invoke.
+* ``instance?`` relationships must also hold for a method to be chosen.
+
 
 Compile vs Run Time
 ===================
 
 ...
+
 
 Kinds of Types
 ==============
@@ -71,6 +104,21 @@ The DRM specifies 4 kinds of types:
 * Limited Types
 * Union Types
 * Singleton Types
+
+Classes
+-------
+
+...
+
+Limited Types
+-------------
+
+...
+
+Union Types
+-----------
+
+...
 
 Singleton Types
 ---------------
@@ -128,6 +176,7 @@ should be used to instantiate the file stream. (This way of implementing
 a ``make`` method specialized on an abstract class like ``<file-stream>``
 is a common way to implement a factory method in Dylan.)
 
+
 Types Are Values
 ================
 
@@ -140,6 +189,7 @@ As `described in the DRM`_:
 This means that functions can return instances of a type and type objects
 are treated like any other value in Dylan. This is used in many places,
 including ``type-for-copy`` in the standard library.
+
 
 Extending The Type System
 =========================
@@ -159,5 +209,6 @@ of patches to Open Dylan. (An example of a new type would be generating
 a type that represents constrained values based on a schema definition.)
 
 
-.. _described in the DRM: http://opendylan.org/books/drm/Types_and_Classes_Overview
+.. _Method Dispatch section of the DRM: http://opendylan.org/books/drm/Method_Dispatch
 .. _in a bit more detail: http://opendylan.org/books/drm/Singletons
+.. _described in the DRM: http://opendylan.org/books/drm/Types_and_Classes_Overview
