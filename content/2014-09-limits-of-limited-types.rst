@@ -11,23 +11,34 @@ What Are Limited Types?
 
 Limited types are used to indicate objects that are instances of another
 type and have additional constraints imposed upon them. They are used in
-two scenarios typically:
+two scenarios typically: limiting integers and limiting collections.
 
-* Limiting the range of valid integer values:
+Limited Integers
+----------------
 
-  .. code-block:: dylan
+Limited integers allow the programmer to express the specific range
+of integers permitted within a value via an upper and lower bound:
 
-    // Accepts all strictly positive integers.
-    define method f (x :: limited(<integer>, min: 1))
-      ...
-    end method f;
+.. code-block:: dylan
 
-* Limiting the size or types of elements contained within a collection:
+  // Accepts all strictly positive integers.
+  define method f (x :: limited(<integer>, min: 1))
+    ...
+  end method f;
 
-  .. code-block:: dylan
+Limited Collections
+-------------------
 
-    let <integer-vector> = limited(<vector>, of: <integer>);
-    let <veci3> = limited(<vector>, of: <integer>, size: 3);
+Limited collections can constrain the size or dimensions of a collection
+as well as the types of values that can be stored within the collection:
+
+.. code-block:: dylan
+
+  let <integer-vector> = limited(<vector>, of: <integer>);
+  let <veci3> = limited(<vector>, of: <integer>, size: 3);
+
+Origins of Limited Types
+------------------------
 
 Like many elements of the Dylan design, these clearly came from Common Lisp,
 where integer types can specify upper and lower bounds, and collections
@@ -95,12 +106,85 @@ active areas of research over the last 25 years (or longer).
 Parametric Polymorphism
 -----------------------
 
-...
+According to Wikipedia, `parametric polymorphism is`_:
+
+    In programming languages and type theory, parametric polymorphism is
+    a way to make a language more expressive, while still maintaining full
+    static type-safety. Using parametric polymorphism, a function or a data
+    type can be written generically so that it can handle values identically
+    without depending on their type.[1] Such functions and data types are
+    called generic functions and generic datatypes respectively and form
+    the basis of generic programming.
+
+    For example, a function ``append`` that joins two lists can be
+    constructed so that it does not care about the type of elements: it
+    can append lists of integers, lists of real numbers, lists of strings,
+    and so on. Let the *type variable a* denote the type of elements in
+    the lists. Then ``append`` can be typed ``[a] × [a] -> [a]``, where
+    ``[a]`` denotes the type of lists with elements of type *a*. We say
+    that the type of ``append`` is *parameterized by a* for all values
+    of *a*. (Note that since there is only one type variable, the
+    function cannot be applied to just any pair of lists: the pair, as well as
+    the result list, must consist of the same type of elements.) For each
+    place where ``append`` is applied, a value is decided for *a*.
+
+Hannes Mehnert wrote about Dylan and parametric polymorphism in his paper
+`Extending Dylan’s type system for better type inference and error detection`_,
+presented at ILC2010. He discusses how this can apply to Dylan (assumning
+also that `function types`_ have been added to Dylan):
+
+    The motivating example to enhance Dylan’s type inference is
+    ``map(method(x) x + 1 end, #(1, 2, 3))`` which applies the
+    anonymous method ``x + 1`` to every element of the list
+    ``#(1, 2, 3)``. Previously the compiler called the generic
+    function ``+``, since it could not infer precise enough types,
+    using the type inference algorithm described in `[2]`_.
+
+    By introduction of parametric polymorphism (type variables) the
+    types can be inferred more precisely. The former signature of our
+    map is ``<function>, <collection> ⇒ <collection>``. A more specific
+    signature using type variables would be ``<function>α→β,
+    <collection>α ⇒ <collection>β``, where the first parameter is a
+    ``<function>`` which is restricted to ``α → β``, the second
+    parameter is a ``<collection>`` of ``α``, and the return value is
+    a ``<collection> of β``.  Using this signature, ``α`` will be bound
+    to ``<integer>``, and the optimizer can upgrade the call to ``+`` to
+    a direct call to ``+ (<integer>, <integer>)``, since the types of the
+    arguments are ``<integer>`` and ``singleton(1)``.
+
+I don't have a lot more to add to that at the moment. Adding parametric
+polymorphism to Dylan instead of having a very limited set of generic
+classes available (and all of them collections) would be a great step
+forward in terms of expressiveness and safety.
 
 Refinement Types
 ----------------
 
 ...
+
+The Pains of Expressiveness
+===========================
+
+Above, we have treated gains in expressiveness as an unquestioned
+good. After all, they allow the programmer to more clearly express
+what they want and the compiler is better able to check for errors.
+It sounds great!
+
+Unfortunately, however, gains in expressiveness can come at a cost.
+
+In the case of Dylan, the language specification and the compiler
+itself were able to take advantage of the restrictions imposed upon
+limited types in various ways.
+
+For example, with limited integers since the constraints are restricted
+to upper and lower bounds, it was readily possible to statically
+determine subtype relationships between various limited integer
+types at compile and run time. This allowed them to work cleanly with
+method dispatch and in an intuitive and clear way.
+
+Allowing arbitrary predicates to be attached to a base type, as is
+done by refinement types, makes it much harder (or impossible) to
+determine type relations at compile or run time.
 
 How Can We Improve Dylan?
 =========================
@@ -110,3 +194,7 @@ That's a great question!
 ...
 
 .. _Satisfiability Modulo Theories: http://en.wikipedia.org/wiki/Satisfiability_Modulo_Theories
+.. _parametric polymorphism is: http://en.wikipedia.org/wiki/Parametric_polymorphism
+.. _Extending Dylan’s type system for better type inference and error detection: http://www.itu.dk/~hame/ilc2010.pdf
+.. _function types: http://dylanfoundry.org/2014/08/01/function-types-and-dylan-2016/
+.. _[2]: http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.93.4969
