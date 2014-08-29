@@ -2,7 +2,7 @@ Deepening LLDB Integration
 ##########################
 
 :author: Bruce Mitchener, Jr.
-:date: 2014-8-20
+:date: 2014-9-20
 :tags: Debugging, LLDB
 :status: draft
 
