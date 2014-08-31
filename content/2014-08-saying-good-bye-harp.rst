@@ -4,7 +4,6 @@ Saying Good-bye: HARP
 :author: Bruce Mitchener, Jr.
 :date: 2014-8-31
 :tags: Saying Good-bye
-:status: draft
 
 This begins a new series of blog posts that will continue over the next
 few months as we say "Good-bye!" to parts of Open Dylan.
