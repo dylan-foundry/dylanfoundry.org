@@ -38,7 +38,7 @@ Clive Tong, an engineer at Harlequin in 1989, `briefly described it`_ as:
     an infinite set of registers, and the register colouring happened as
     part of this templating processing.
 
-Some additional details about the early design of HARP is available
+Some additional details about the early design of HARP are available
 in `Techniques for Dynamic Software Migration`_ from 1988. Other
 early sources of information about it, written by Hunter and Knightbridge,
 appear to be lost to the sands of time.
@@ -144,8 +144,8 @@ us with a single functioning compiler back-end: the C back-end. As a
 result, until the LLVM back-end is functioning, we will not have
 support for the Windows platform.
 
-Another issue is that our support for the `Memory Pool System`_ (MPS)
-garbage collector only current works for the HARP back-end. With
+Also, our support for the `Memory Pool System`_ (MPS)
+garbage collector only currently works for the HARP back-end. With
 the C back-end, we use the Boehm GC. We will work with the folks
 at RavenBrook to restore our support for the MPS GC.
 
