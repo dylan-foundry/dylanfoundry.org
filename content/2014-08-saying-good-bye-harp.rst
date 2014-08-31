@@ -121,6 +121,12 @@ process.
 Motivation
 ----------
 
+::
+
+    "When one burns one's bridges, what a very nice fire it makes."
+
+      -- Dylan Marlais Thomas
+
 Getting rid of HARP makes it easier to start making changes that require
 work on our compiler back-ends. This could lead to some exciting work
 getting done.
