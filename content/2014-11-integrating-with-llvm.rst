@@ -2,9 +2,8 @@ Integrating with LLVM
 #####################
 
 :author: Bruce Mitchener, Jr.
-:date: 2014-11-10
+:date: 2014-11-5
 :tags: LLVM
-:status: draft
 
 Many compilers are now being outfitted with LLVM backends. There are
 a variety of ways to do this, and we'll take a look at some of them
