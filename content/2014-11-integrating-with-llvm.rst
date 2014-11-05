@@ -160,6 +160,13 @@ Our old compiler backend on Windows supported this with the help
 of the Open Dylan debugger and we will re-visit similar solutions
 in the future once everything else is working.
 
+The odds are that we'll be able to accomplish this by invoking
+``clang -c`` and then using our existing "spy" routines within the
+run-time to load the resulting code into the running application.
+We'll want to look at supporting the `GDB JIT interface`_ to
+let the debugger be able to find the debug info for the newly
+compiled code.
+
 Downsides?
 ----------
 
@@ -205,3 +212,4 @@ an interesting set of trade-offs that others may find interesting.
 .. _bitcode: http://llvm.org/docs/BitCodeFormat.html
 .. _Dylan library, llvm: https://github.com/dylan-lang/opendylan/tree/master/sources/lib/llvm
 .. _phi instructions: http://llvm.org/docs/LangRef.html#phi-instruction
+.. _GDB JIT interface: https://sourceware.org/gdb/current/onlinedocs/gdb/JIT-Interface.html
