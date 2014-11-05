@@ -82,7 +82,9 @@ not yet landed on the master branch in the main Open Dylan repository.
 
 When building LLVM IR, there are methods whose names start with ``ins--``
 for each of the instructions, as well as some that perform additional
-work to simplify the process of building the IR.
+work to simplify the process of building the IR. These functions are
+used with an instance of ``<llvm-builder>``, of which ``<llvm-back-end>``
+is a subclass.
 
 For a brief example, the Dylan compiler has a variety of primitives
 which express low-level concepts. For example, to cast a machine word
@@ -115,6 +117,9 @@ described in the body of the primitive:
   value. Otherwise, truncate it to a 32 bit integer (``$llvm-i32-type``).
 * Then, emit a bitcast of that value to the LLVM float type
   (``$llvm-float-type``).
+
+One minor note is that the variable ``be`` above is bound to an instance
+of ``<llvm-back-end>`` via a bit of macro magic.
 
 Generating some sorts of control flow structures can be tedious due to
 things like `phi instructions`_. Peter Housel cleverly added some macros
@@ -161,7 +166,7 @@ Downsides?
 There are a couple of possible downsides with this approach.
 
 One is that things occasionally change and require updates to the bitcode
-generation or the IR modelling code. To date, this hasn't been too
+generation or the IR modeling code. To date, this hasn't been too
 terrible. This is also true when new LLVM has new intrinsics or
 annotations added.
 
