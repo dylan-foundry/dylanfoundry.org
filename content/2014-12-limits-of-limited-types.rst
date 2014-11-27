@@ -2,7 +2,7 @@ The Limits of Limited Types
 ###########################
 
 :author: Bruce Mitchener, Jr.
-:date: 2014-9-10
+:date: 2014-12-10
 :tags: Type System
 :status: draft
 
@@ -181,6 +181,10 @@ to upper and lower bounds, it was readily possible to statically
 determine subtype relationships between various limited integer
 types at compile and run time. This allowed them to work cleanly with
 method dispatch and in an intuitive and clear way.
+
+Information about the static size of limited collections (those with
+a static size) is used during optimization as well to help constant
+fold away some checks that would otherwise have been performed.
 
 Allowing arbitrary predicates to be attached to a base type, as is
 done by refinement types, makes it much harder (or impossible) to
