@@ -160,7 +160,43 @@ forward in terms of expressiveness and safety.
 Refinement Types
 ----------------
 
-...
+Refinement types allow an arbitrary predicate to be attached to a type
+which constrains the values of that type.
+
+These are typically written in a form like::
+
+   {v :: Type | predicate }
+
+Refinement types can be used to express a few different things that
+have specialized syntax in Dylan (as well as many other things that
+can't currently be expressed in Dylan).
+
+A singleton type is a type that has a single possible value:
+
+.. code-block:: dylan
+
+    let <zero> = singleton(0);
+
+    let <zero> = {v :: <integer> | v == 0};
+
+It can also be used in a manner like our current limited integers:
+
+.. code-block:: dylan
+
+    let <natural> = limited(<integer>, min: 0);
+
+    let <natural> = {v :: <integer> | v >= 0};
+
+Since the predicate can be an arbitrary expression, it is can express
+many new concepts:
+
+.. code-block:: dylan
+
+    let <even-natural> = {v :: <integer> | v >= 0 && (modulo(v, 2) == 0};
+
+Refinement types have been implemented in a number of languages over
+the years. `Liquid Haskell`_ provides an `interesting exploration`_
+(`continued`_) of the space.
 
 The Pains of Expressiveness
 ===========================
@@ -202,3 +238,6 @@ That's a great question!
 .. _Extending Dylan’s type system for better type inference and error detection: http://www.itu.dk/~hame/ilc2010.pdf
 .. _function types: http://dylanfoundry.org/2014/08/01/function-types-and-dylan-2016/
 .. _[2]: http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.93.4969
+.. _Liquid Haskell: https://github.com/ucsd-progsys/liquidhaskell
+.. _interesting exploration: http://goto.ucsd.edu/~rjhala/liquid/haskell/blog/blog/2013/01/01/refinement-types-101.lhs/
+.. _continued: http://goto.ucsd.edu/~rjhala/liquid/haskell/blog/blog/2013/01/27/refinements101-reax.lhs/
