@@ -160,7 +160,7 @@ Refinement Types
 Refinement types allow an arbitrary predicate to be attached to a type
 which constrains the values of that type.
 
-These are typically written in a form like::
+These can be written in a form like (as in Liquid Haskell)::
 
    {v :: Type | predicate }
 
@@ -194,6 +194,10 @@ many new concepts:
 Refinement types have been implemented in a number of languages over
 the years. `Liquid Haskell`_ provides an `interesting exploration`_
 (`continued`_) of the space.
+
+Refinement types can be implemented using a SMT (`Statisfiability
+Modulo Theories`_) solver.  Some of the existing implementations
+such as `F7`_ use the `Z3` solver from Microsoft.
 
 The Pains of Expressiveness
 ===========================
@@ -238,3 +242,5 @@ That's a great question!
 .. _Liquid Haskell: https://github.com/ucsd-progsys/liquidhaskell
 .. _interesting exploration: http://goto.ucsd.edu/~rjhala/liquid/haskell/blog/blog/2013/01/01/refinement-types-101.lhs/
 .. _continued: http://goto.ucsd.edu/~rjhala/liquid/haskell/blog/blog/2013/01/27/refinements101-reax.lhs/
+.. _F7: http://research.microsoft.com/en-us/projects/f7/
+.. _Z3: http://z3.codeplex.com/
