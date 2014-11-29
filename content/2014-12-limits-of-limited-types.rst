@@ -87,9 +87,6 @@ I can make some guesses:
   maturity. An example of this are systems which employ SMT
   (`Satisfiability Modulo Theories`_) solvers.
 
-*Note: I should drop David Moon and others an email perhaps and ask
-about this.*
-
 Looking Forward By Looking Around
 =================================
 
