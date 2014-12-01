@@ -3,7 +3,6 @@ The ALGOL Roots of Dylan
 
 :author: Bruce Mitchener, Jr.
 :date: 2014-12-10
-:tags:
 :status: draft
 
 Dylan is often seen as a descendent of the Lisp family of languages. It
@@ -63,9 +62,7 @@ Union Types
 ALGOL 68 introduced the concept of "united modes", or what we now know as
 "union types" in many modern languages.
 
-In ALGOL 68, this would look like:
-
-.. code-block::
+In ALGOL 68, this would look like::
 
     MODE node = UNION (REAL, INT, STRING);
 

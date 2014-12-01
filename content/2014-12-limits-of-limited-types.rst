@@ -195,7 +195,7 @@ Refinement types have been implemented in a number of languages over
 the years. `Liquid Haskell`_ provides an `interesting exploration`_
 (`continued`_) of the space.
 
-Refinement types can be implemented using a SMT (`Statisfiability
+Refinement types can be implemented using a SMT (`Satisfiability
 Modulo Theories`_) solver.  Some of the existing implementations
 such as `F7`_ use the `Z3` solver from Microsoft.
 
