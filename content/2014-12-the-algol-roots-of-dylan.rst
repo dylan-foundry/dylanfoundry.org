@@ -78,6 +78,35 @@ the new type.
 Common Lisp supports union types via ``or`` and compilers can use union types
 internally, as described in the `CMUCL User's Manual`_.
 
+Expression Oriented
+===================
+
+ALGOL 68 was an expression-oriented language. This meant that all constructs
+in the language could be used as expressions. (This is typical in a Lisp
+as well as many other languages today.)
+
+In ALGOL 68, this was valid code::
+
+    INT output := IF input = 2 THEN 42 ELSE 4711 FI;
+
+Control Flow
+============
+
+...
+
+In Closing
+==========
+
+Hopefully, this gives you a taste for some of the many influences that
+`ALGOL`_ and `ALGOL 68_` had on subsequent programming languages and,
+in particular, on Dylan.
+
+ALGOL and ALGOL 68 were very interesting languages in their own rights
+and drove a lot of innovation in their own times. Some of these ideas
+survived through to the current day (call by value vs call by name
+parameters for example), while others have fallen by the wayside
+(like allowing spaces in variable names or Van Wijngaarden grammars).
+
 .. _Common Lisp: http://en.wikipedia.org/wiki/Common_Lisp
 .. _Scheme: http://en.wikipedia.org/wiki/Scheme_%28programming_language%29
 .. _EuLisp: http://en.wikipedia.org/wiki/EuLisp
