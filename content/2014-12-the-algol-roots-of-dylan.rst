@@ -107,6 +107,14 @@ survived through to the current day (call by value vs call by name
 parameters for example), while others have fallen by the wayside
 (like allowing spaces in variable names or Van Wijngaarden grammars).
 
+Further Reading
+===============
+
+* `The History of the ALGOL Effort`_ by HT de Beer.
+* `The Design of Elegant Languages`_ by Lambert Meertens.
+* `Djikstra's Crisis: The End of Algol and Beginning of Software Engineering, 1968-72`_
+  (draft) by Thomas Haigh.
+
 .. _Common Lisp: http://en.wikipedia.org/wiki/Common_Lisp
 .. _Scheme: http://en.wikipedia.org/wiki/Scheme_%28programming_language%29
 .. _EuLisp: http://en.wikipedia.org/wiki/EuLisp
@@ -117,3 +125,6 @@ parameters for example), while others have fallen by the wayside
 .. _noted there: http://jmvdveer.home.xs4all.nl/report.html#012
 .. _lexical scope originated: http://en.wikipedia.org/wiki/Scope_%28computer_science%29#History
 .. _CMUCL User's Manual: http://common-lisp.net/project/cmucl/doc/cmu-user/compiler-hint.html#toc146
+.. _The History of the ALGOL Effort: http://heerdebeer.org/ALGOL/The_History_of_ALGOL.pdf
+.. _The Design of Elegant Languages: http://www.kestrel.edu/home/people/meertens/publications/papers/The_design_of_elegant_languages.pdf
+.. _Djikstra's Crisis\: The End of Algol and Beginning of Software Engineering, 1968-72: http://www.tomandmaria.com/tom/Writing/DijkstrasCrisis_LeidenDRAFT.pdf
