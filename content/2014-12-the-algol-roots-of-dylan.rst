@@ -114,6 +114,7 @@ Further Reading
 * `The Design of Elegant Languages`_ by Lambert Meertens.
 * `Djikstra's Crisis: The End of Algol and Beginning of Software Engineering, 1968-72`_
   (draft) by Thomas Haigh.
+* `ALGOL 68g`_, an open source implementation of ALGOL 68.
 
 .. _Common Lisp: http://en.wikipedia.org/wiki/Common_Lisp
 .. _Scheme: http://en.wikipedia.org/wiki/Scheme_%28programming_language%29
@@ -128,3 +129,4 @@ Further Reading
 .. _The History of the ALGOL Effort: http://heerdebeer.org/ALGOL/The_History_of_ALGOL.pdf
 .. _The Design of Elegant Languages: http://www.kestrel.edu/home/people/meertens/publications/papers/The_design_of_elegant_languages.pdf
 .. _Djikstra's Crisis\: The End of Algol and Beginning of Software Engineering, 1968-72: http://www.tomandmaria.com/tom/Writing/DijkstrasCrisis_LeidenDRAFT.pdf
+.. _ALGOL 68g: http://jmvdveer.home.xs4all.nl/
