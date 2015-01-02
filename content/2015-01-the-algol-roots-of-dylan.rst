@@ -88,11 +88,6 @@ In ALGOL 68, this was valid code::
 
     INT output := IF input = 2 THEN 42 ELSE 4711 FI;
 
-Control Flow
-============
-
-...
-
 In Closing
 ==========
 
