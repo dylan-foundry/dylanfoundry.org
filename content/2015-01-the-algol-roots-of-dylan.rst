@@ -2,8 +2,7 @@ The ALGOL Roots of Dylan
 ########################
 
 :author: Bruce Mitchener, Jr.
-:date: 2014-12-10
-:status: draft
+:date: 2015-01-02
 
 Dylan is often seen as a descendent of the Lisp family of languages. It
 was designed (and implemented) by people from the `Common Lisp`_ world and
