@@ -233,7 +233,7 @@ new implementation strategy for *testworks-specs*.
 
 Instead, we will have to generate code for classes that is a little
 bit different from the other test types. Unfortunately, this code
-won't be able to have as have as much error checking at compile time.
+won't be able to have as much error checking at compile time.
 
 *Explain it more?*
 
