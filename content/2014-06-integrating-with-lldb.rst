@@ -14,6 +14,8 @@ debugger integration.
 Much of what is described below may be applicable to people working on
 debugging support for other languages.
 
+Please note that an update to this post has been `published`_.
+
 Current State of Dylan Debugging
 ================================
 
@@ -385,3 +387,5 @@ There's still work to do though:
 * Handle stack traces better and make them easier to read.
 * Add a command line flag to dylan-compiler to have it generate
   code with more debug information available (and less optimization).
+
+.. _published: http://dylanfoundry.org/2015/03/02/deepening-lldb-integration/
